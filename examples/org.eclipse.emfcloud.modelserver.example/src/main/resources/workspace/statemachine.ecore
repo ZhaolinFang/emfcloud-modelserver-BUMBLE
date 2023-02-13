@@ -7,18 +7,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="BaseConcept" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true" eSuperTypes="#//BaseConcept">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="baseconcept" upperBound="-1"
-        eType="#//BaseConcept" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateMachine" eSuperTypes="#//BaseConcept #//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentinput" eType="#//Input"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentstate" eType="#//State"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="currentoutput" eType="#//Output"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
         eType="#//Input" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="output" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outputs" upperBound="-1"
         eType="#//Output" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
         eType="#//Transition" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//State" containment="true"/>

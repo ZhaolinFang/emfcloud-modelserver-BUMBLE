@@ -22,15 +22,10 @@ import org.eclipse.emfcloud.modelserver.emf.launch.CLIParser;
 import org.eclipse.emfcloud.modelserver.example.util.ResourceUtil;
 
 public final class ExampleServerLauncher {
-   private static final String ECORE_COFFEE = "Coffee.ecore";
-   private static final String XMI_COFFEE = "SuperBrewer3000.coffee";
-   private static final String JSON_COFFEE = "SuperBrewer3000.json";
    private static final String TEMP_DIR = ".temp";
    private static final String WORKSPACE_ROOT = "workspace";
    private static final String ECORE_STATEMACHINE_FILE = "statemachine.ecore";
    private static final String TRAFFIC_SIGNAL_STATEMACHINE = "TrafficSignals.statemachine";
-   // private static final String XMI_STATEMACHINE_FILE = "StateMachine.xmi";
-   private static final String XMI_ECORE_URI_FILE = "EcoreURI.xmi";
    private static final String UISCHEMA_FOLDER = ".ui-schemas";
    private static final String WORKSPACE_UISCHEMA_FOLDER = "workspace" + "/" + UISCHEMA_FOLDER;
    private static final String UISCHEMA_AUTOMATICTASK_FILE = "automatictask.json";
@@ -88,20 +83,10 @@ public final class ExampleServerLauncher {
    private static boolean setupTempTestWorkspace(final File workspaceRoot) {
       cleanupTempTestWorkspace(workspaceRoot);
       boolean result = workspaceRoot.mkdirs();
-      result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + ECORE_COFFEE,
-         new File(workspaceRoot, ECORE_COFFEE));
-      result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + XMI_COFFEE,
-         new File(workspaceRoot, XMI_COFFEE));
-      result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + JSON_COFFEE,
-         new File(workspaceRoot, JSON_COFFEE));
       result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + ECORE_STATEMACHINE_FILE,
          new File(workspaceRoot, ECORE_STATEMACHINE_FILE));
       result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + TRAFFIC_SIGNAL_STATEMACHINE,
          new File(workspaceRoot, TRAFFIC_SIGNAL_STATEMACHINE));
-      // result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + XMI_STATEMACHINE_FILE,
-      // new File(workspaceRoot, XMI_STATEMACHINE_FILE));
-      result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + XMI_ECORE_URI_FILE,
-         new File(workspaceRoot, XMI_ECORE_URI_FILE));
       result &= setupTempUiSchemaTestWorkspace(new File(workspaceRoot + "/" + UISCHEMA_FOLDER + "/"), result);
       return result;
    }
