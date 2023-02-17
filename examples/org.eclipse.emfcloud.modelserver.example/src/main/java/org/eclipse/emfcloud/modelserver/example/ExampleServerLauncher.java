@@ -26,6 +26,8 @@ public final class ExampleServerLauncher {
    private static final String WORKSPACE_ROOT = "workspace";
    private static final String ECORE_STATEMACHINE_FILE = "statemachine.ecore";
    private static final String TRAFFIC_SIGNAL_STATEMACHINE = "TrafficSignals.statemachine";
+   private static final String ECORE_MODELINVENTORY_FILE = "modelInventory.ecore";
+   private static final String XMI_MODELINVENTORY_FILE = "ModelInventory.xmi";
    private static final String UISCHEMA_FOLDER = ".ui-schemas";
    private static final String WORKSPACE_UISCHEMA_FOLDER = "workspace" + "/" + UISCHEMA_FOLDER;
    private static final String UISCHEMA_AUTOMATICTASK_FILE = "automatictask.json";
@@ -87,6 +89,10 @@ public final class ExampleServerLauncher {
          new File(workspaceRoot, ECORE_STATEMACHINE_FILE));
       result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + TRAFFIC_SIGNAL_STATEMACHINE,
          new File(workspaceRoot, TRAFFIC_SIGNAL_STATEMACHINE));
+      result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + ECORE_MODELINVENTORY_FILE,
+         new File(workspaceRoot, ECORE_MODELINVENTORY_FILE));
+      result &= ResourceUtil.copyFromResource(WORKSPACE_ROOT + "/" + XMI_MODELINVENTORY_FILE,
+         new File(workspaceRoot, XMI_MODELINVENTORY_FILE));
       result &= setupTempUiSchemaTestWorkspace(new File(workspaceRoot + "/" + UISCHEMA_FOLDER + "/"), result);
       return result;
    }
