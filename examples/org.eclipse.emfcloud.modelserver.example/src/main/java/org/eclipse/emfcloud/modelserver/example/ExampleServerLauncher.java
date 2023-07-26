@@ -21,6 +21,8 @@ import org.eclipse.emfcloud.modelserver.emf.launch.CLIBasedModelServerLauncher;
 import org.eclipse.emfcloud.modelserver.emf.launch.CLIParser;
 import org.eclipse.emfcloud.modelserver.example.util.ResourceUtil;
 
+import nl.vu.cs.bumble.modelinventorycontroller.subscriber.ModelInventorySubscriber;
+
 public final class ExampleServerLauncher {
    private static final String TEMP_DIR = ".temp";
    private static final String WORKSPACE_ROOT = "workspace";
@@ -52,6 +54,17 @@ public final class ExampleServerLauncher {
          createCLIParser(args),
          new ExampleServerModule());
       launcher.run();
+
+      Thread T = new Thread(() -> {
+         try {
+            ModelInventorySubscriber subscriber = new ModelInventorySubscriber();
+         } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+         }
+      });
+
+      T.start();
    }
 
    protected static CLIParser createCLIParser(final String[] args) {
@@ -70,7 +83,6 @@ public final class ExampleServerLauncher {
          }
          Runtime.getRuntime().addShutdownHook(new Thread(() -> cleanupTempTestWorkspace(workspaceRoot)));
          parser.setOption(CLIParser.OPTION_WORKSPACE_ROOT, workspaceRoot.toURI());
-
          ensureUISchemaFolder(parser);
       }
    }

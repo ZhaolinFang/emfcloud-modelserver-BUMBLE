@@ -22,4 +22,6 @@ public interface ModelServerPathParametersV1 {
    String TIMEOUT = "timeout";
    String LIVE_VALIDATION = "livevalidation";
 
+   String LOCATION = "loc";
+
 }

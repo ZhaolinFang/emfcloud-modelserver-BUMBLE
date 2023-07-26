@@ -119,6 +119,12 @@ public class ModelServerRoutingV2 implements Routing {
 
       post(TRANSACTION_ENDPOINT, this::createTransaction);
       ws(TRANSACTION_ENDPOINT + "/{id}", this::openTransaction);
+
+      get(ModelServerPathsV2.FETCH, delegate::fetch);
+      get(ModelServerPathsV2.FETCH_ALL, delegate::fetchAll);
+      get(ModelServerPathsV2.SAVE2, delegate::save2);
+      get(ModelServerPathsV2.SAVE2_ALL, delegate::save2All);
+
    }
 
    protected void connectSubscription(final WsConnectContext ctx, final String modelUri) {

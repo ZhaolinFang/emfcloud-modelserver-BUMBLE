@@ -35,4 +35,10 @@ public interface ModelServerPathsV2 {
    String SERVER_CONFIGURE = "server/configure";
    String SERVER_PING = "server/ping";
 
+   String FETCH = "fetch"; // accepts query parameter "location" and "modeluri"
+   String FETCH_ALL = "fetchall";
+
+   String SAVE2 = "save2"; // accepts query parameter "location" and "modeluri"
+   String SAVE2_ALL = "save2all";
+
 }

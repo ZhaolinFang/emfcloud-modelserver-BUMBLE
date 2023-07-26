@@ -60,7 +60,7 @@
       uri="ModelShape.xmi"
       confirmsTo="//@language.0"/>
   <model name="ModelAnimal"
-      location="Git"
+      location="MongoDB"
       uri="ModelAnimal.xmi"
       confirmsTo="//@language.1"
       createdBy="Bob"/>

@@ -13,6 +13,7 @@ package org.eclipse.emfcloud.modelserver.emf.common;
 import static io.javalin.apibuilder.ApiBuilder.path;
 import static org.eclipse.emfcloud.modelserver.common.ModelServerPathParametersV1.ELEMENT_ID;
 import static org.eclipse.emfcloud.modelserver.common.ModelServerPathParametersV1.ELEMENT_NAME;
+import static org.eclipse.emfcloud.modelserver.common.ModelServerPathParametersV1.LOCATION;
 import static org.eclipse.emfcloud.modelserver.common.ModelServerPathParametersV1.MODEL_URI;
 import static org.eclipse.emfcloud.modelserver.common.ModelServerPathParametersV1.SCHEMA_NAME;
 import static org.eclipse.emfcloud.modelserver.common.ModelServerPathsV1.SERVER_CONFIGURE;
@@ -41,6 +42,7 @@ import io.javalin.websocket.WsConfig;
 import io.javalin.websocket.WsConnectContext;
 import io.javalin.websocket.WsErrorContext;
 import io.javalin.websocket.WsMessageContext;
+import nl.vu.cs.bumble.persistencycontroller.controller.PersistencyController;
 
 /**
  * Implementation of common routing for multiple API versions.
@@ -54,6 +56,7 @@ class ModelServerRoutingDelegate {
    protected final SchemaController schemaController;
    protected final ServerController serverController;
    protected final SessionController sessionController;
+   protected final PersistencyController persistencyController = new PersistencyController();
 
    protected final String basePath;
 
@@ -79,6 +82,7 @@ class ModelServerRoutingDelegate {
       this.onServerConfigured = CompletableFuture.completedFuture(null);
 
       this.basePath = basePath;
+
    }
 
    public void setModelURIConverter(final ModelURIConverter uriConverter) { this.uriConverter = uriConverter; }
@@ -262,5 +266,46 @@ class ModelServerRoutingDelegate {
       if (!sessionController.handleMessage(ctx)) {
          error(ctx, "Cannot handle message: %s", ctx.message());
       }
+   }
+
+   protected void fetch(final Context ctx) {
+      uriConverter.withResolvedModelURI(ctx, modelURI -> {
+         Optional<String> modelName = getParam(ctx, MODEL_URI);
+         Optional<String> location = getParam(ctx, LOCATION);
+         if (modelName.isPresent() && location.isPresent()) {
+            persistencyController.setModelName(modelName.get());
+            persistencyController.setType(location.get());
+            persistencyController.fetch();
+            return;
+         }
+
+         missingParameter(ctx, MODEL_URI + "' or '" + LOCATION);
+      });
+
+   }
+
+   protected void fetchAll(final Context ctx) {
+      persistencyController.fetchAll();
+      return;
+   }
+
+   protected void save2(final Context ctx) {
+      uriConverter.withResolvedModelURI(ctx, modelURI -> {
+         Optional<String> modelName = getParam(ctx, MODEL_URI);
+         Optional<String> location = getParam(ctx, LOCATION);
+         if (modelName.isPresent() && location.isPresent()) {
+            persistencyController.setModelName(modelName.get());
+            persistencyController.setType(location.get());
+            persistencyController.save();
+            return;
+         }
+
+         missingParameter(ctx, MODEL_URI + "' or '" + LOCATION);
+      });
+   }
+
+   protected void save2All(final Context ctx) {
+      persistencyController.saveAll();
+      return;
    }
 }
